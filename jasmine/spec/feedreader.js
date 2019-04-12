@@ -46,8 +46,8 @@ $(function () {
     describe('The menu', function () {
         /*  menu element is hidden by default. */
         it('is hidden by default', function () {
-            var bodyElement = document.body;
-            expect(bodyElement.classList).toContain('menu-hidden');
+            let bodyElement = $('body');
+            let className = 'menu-hidden'; expect(bodyElement.hasClass(className)).toBe(true);
 
         });
 
@@ -59,17 +59,17 @@ $(function () {
 
         it('changes visibility when the menu icon is clicked', function () {
 
-            var bodyElement = document.body;
-
+            let bodyElement = $('body');
+            let className = 'menu-hidden'; 
             menuIcon = $('.menu-icon-link')[0];
 
             spyOnEvent(menuIcon, 'click');
 
             menuIcon.click();
-            expect(bodyElement.classList).not.toContain('menu-hidden');
+            expect(bodyElement.hasClass(className)).toBe(false);
 
             menuIcon.click();
-            expect(bodyElement.classList).toContain('menu-hidden');
+            expect(bodyElement.hasClass(className)).toBe(true);
 
         });
 
@@ -88,8 +88,9 @@ $(function () {
             });
         });
 
-        it('has at least a single entry', function (done) {
-            expect($('.feed')).not.toBeEmpty();
+        it('has at least a single entry', function (done) {      
+            let enteriesNumber = $('.feed .entry').length;
+            expect(enteriesNumber).toBeGreaterThan(0);
             done();
         });
     });
@@ -105,7 +106,6 @@ $(function () {
 
         beforeEach(function (done) {
             beforeFeed = feedList[0].innerHTML;
-            console.log(beforeFeed)
             loadFeed(2, function () {
                 done();
             });
@@ -116,7 +116,7 @@ $(function () {
          */
         it('content change', function (done) {
             afterFeed = feedList[0].innerHTML;
-            expect(afterFeed).not.toBe(beforeFeed);
+            expect(afterFeed).not.toEqual(beforeFeed);
             done();
         });
     });
